@@ -1,0 +1,38 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  body {
+    background-color: theme('colors.background');
+    color: theme('colors.text');
+  }
+}
+
+@layer components {
+  .btn {
+    padding: theme('spacing.2') theme('spacing.4');
+    border-radius: theme('borderRadius.md');
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+  .btn-primary {
+    background-color: theme('colors.primary.DEFAULT');
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: theme('colors.primary.dark');
+  }
+
+  .btn-secondary {
+    background-color: theme('colors.secondary.DEFAULT');
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background-color: theme('colors.secondary.dark');
+  }
+}
