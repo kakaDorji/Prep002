@@ -1,7 +1,4 @@
-import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+// ... your existing imports and config above
 
 export default defineConfig({
   plugins: [
@@ -9,45 +6,40 @@ export default defineConfig({
     vueDevTools(),
   ],
 
-  // ========== PATH RESOLUTION ==========
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       '@views': fileURLToPath(new URL('./src/views', import.meta.url)),
-      '@assets': fileURLToPath(new URL('./src/assets', import.meta.url))
+      '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
     }
   },
 
-  // ========== SERVER/PROXY CONFIG ==========
   server: {
+    allowedHosts: ['prep001.onrender.com'],  // <--- ADD THIS LINE
+
     proxy: {
       '/api': {
         target: 'https://script.google.com',
         changeOrigin: true,
         secure: false,
 
-rewrite: (path) =>
+        rewrite: (path) =>
           path.replace(
             /^\/api/,
             '/macros/s/AKfycbx0sZpq56Zz6gA8r-BLcV7vG2bF3YbFjNJF67ttndllh8q3HTqDQZk_CW1D0n0dF0eyjQ/exec'
           ),
 
-
-
         configure: (proxy) => {
-          // Modify request headers
           proxy.on('proxyReq', (proxyReq) => {
             proxyReq.setHeader('Accept', 'application/json');
             proxyReq.setHeader('Content-Type', 'application/json');
-          },
-          // Modify response headers
+          });
           proxy.on('proxyRes', (proxyRes) => {
-      
-            // Force JSON content type
             proxyRes.headers['content-type'] = 'application/json';
-          }))
+          });
         },
+
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -55,15 +47,13 @@ rewrite: (path) =>
         }
       }
     },
-    // Development server options
+
     host: true,
     port: 5173,
     strictPort: true,
     open: true,
- 
   },
 
-  // ========== BUILD OPTIMIZATIONS ==========
   build: {
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
@@ -71,13 +61,11 @@ rewrite: (path) =>
         manualChunks: {
           vue: ['vue', 'vue-router', 'pinia'],
           vendor: ['axios', 'lodash'],
-          gapi: ['google-api-client'] // If you're using Google API client
+          gapi: ['google-api-client']
         },
-        // Ensure proper chunking for Google APIs
         external: ['google-apps-script']
       }
     },
-    // Additional optimizations
     minify: 'terser',
     terserOptions: {
       compress: {
@@ -87,7 +75,6 @@ rewrite: (path) =>
     }
   },
 
-  // ========== CSS/CSS PREPROCESSORS ==========
   css: {
     postcss: './postcss.config.js',
     preprocessorOptions: {
@@ -97,7 +84,6 @@ rewrite: (path) =>
     }
   },
 
-  // ========== ADDITIONAL OPTIMIZATIONS ==========
   optimizeDeps: {
     include: [
       'vue',
@@ -107,4 +93,4 @@ rewrite: (path) =>
     ],
     exclude: ['google-apps-script']
   }
-})
+});
