@@ -63,8 +63,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           vue: ['vue', 'vue-router', 'pinia'],
-          vendor: ['axios', 'lodash'],
-          gapi: ['google-api-client']
+          vendor: ['axios', 'lodash']
+          
         },
         external: ['google-apps-script']
       }
