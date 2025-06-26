@@ -1,4 +1,7 @@
-// ... your existing imports and config above
+import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
   plugins: [
@@ -27,7 +30,7 @@ export default defineConfig({
         rewrite: (path) =>
           path.replace(
             /^\/api/,
-            '/macros/s/AKfycbx0sZpq56Zz6gA8r-BLcV7vG2bF3YbFjNJF67ttndllh8q3HTqDQZk_CW1D0n0dF0eyjQ/exec'
+            '/macros/s/AKfycbzVZQp7bgSuDRJQtYavhAejekk7qtSGv-vN3p3m089UBNkLrz0mk_TtH3VkA7qodnlqYg/exec'
           ),
 
         configure: (proxy) => {
@@ -94,3 +97,5 @@ export default defineConfig({
     exclude: ['google-apps-script']
   }
 });
+
+
