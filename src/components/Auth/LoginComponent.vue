@@ -121,6 +121,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import Swal from "sweetalert2";
+const API_URL = import.meta.env.VITE_API_URL || "/api";
 
 const username = ref("");
 const password = ref("");
@@ -130,7 +131,7 @@ const handleSubmit = async () => {
   errorMessage.value = "";
 
   try {
-    const response = await axios.post("/api", {
+    const response = await axios.post(API_URL, {
       action: "login",
       username: username.value.trim(),
       password: password.value.trim(),

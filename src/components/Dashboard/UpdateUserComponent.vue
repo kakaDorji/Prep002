@@ -211,7 +211,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
-const API_PREFIX = import.meta.env.VITE_API_URL;
+const API_PREFIX = import.meta.env.VITE_API_URL || "/api";
 
 const users = ref([]);
 const originalUsers = ref({});
