@@ -30,7 +30,7 @@ export default defineConfig({
         rewrite: (path) =>
           path.replace(
             /^\/api/,
-            '/macros/s/AKfycbzVZQp7bgSuDRJQtYavhAejekk7qtSGv-vN3p3m089UBNkLrz0mk_TtH3VkA7qodnlqYg/exec'
+            '/macros/s/AKfycbwxlHTi5mvm1SbcPXGfkuadV4rdEaq6S9u7ZV7_EhcNHjeC4dx1_zp2INJ6mBdGlP5-xg/exec'
           ),
 
         configure: (proxy) => {
@@ -61,12 +61,13 @@ export default defineConfig({
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {
+         external: ['google-apps-script'],
         manualChunks: {
           vue: ['vue', 'vue-router', 'pinia'],
           vendor: ['axios', 'lodash']
           
         },
-        external: ['google-apps-script']
+       
       }
     },
     minify: 'terser',
@@ -97,5 +98,4 @@ export default defineConfig({
     exclude: ['google-apps-script']
   }
 });
-
 
